@@ -4,16 +4,16 @@ namespace SerializationAndAtributes
 
     public class Car
     {
-       [MyIgnore]
+        
         public string Name { get; set; }
 
-        [MyIgnore]
+       
         public decimal Price { get; set; }
         [MyIgnore]
         public int MaxSpeed { get; set; }
         [MyIgnore]
         public string Type { get; set; }
-        [MyIgnore]
+        
         public string Country { get; set; }
 
         public Car() { }
