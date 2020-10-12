@@ -5,31 +5,36 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Messaging;
+using System.Text;
 
 namespace SerializationAndAtributes
 {
     public class SerializationManager
-    {     
-        public static string MyJsonSerializer(object data)
-        {          
+    {      
+        public static string StringSerializer(object data)
+        {
             var dataProperties = data.GetType().GetProperties();
-
-            var dataPropertyList = new List<Object>();
-
+                
+            string result = null;
+          
             foreach (var prop in dataProperties)
             {
+                string name = prop.Name;
+                string value = prop.GetValue(data).ToString();              
+
                 if (prop.GetCustomAttribute<MyIgnoreAttribute>() == null)
                 {
-                    dataPropertyList.Add(prop.GetValue(data));
-                }
+                    result += name + ": " + value + "; ";                 
+                }                                                
+            }
+            if(result == null)
+            {               
+                    throw new MyJsonSerializeException();
             }
 
-            if (dataPropertyList.Count == 0)
-                throw new MyJsonSerializeException();
-
-            string json = JsonConvert.SerializeObject(dataPropertyList, Formatting.Indented);
-
-            return json;
-        }        
+            return result;
+        }
     }
+
+
 }

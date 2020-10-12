@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.Design.Serialization;
 
 namespace SerializationAndAtributes
 {
@@ -12,15 +11,15 @@ namespace SerializationAndAtributes
             Console.WriteLine(car);
             try
             {
-                var myJson = SerializationManager.MyJsonSerializer(car);
-                
+                var myJson = SerializationManager.StringSerializer(car);
+                Console.WriteLine(myJson);              
+                Console.ReadKey();
             }
             catch (MyJsonSerializeException ex)
             {
                 throw ex;
             }           
-            Console.WriteLine();
-
+            Console.WriteLine();           
         }
 
     }
